@@ -7,7 +7,7 @@ def get_cross_validation(X, y, model, cv = 10, print_out = True, variable = Fals
   mean = np.mean(cross_val_scores)
   variance = cross_val_scores.std()
   if variable:
-    settings.model_cross_validation[class_name] = {'mean':mean, 'variance': variance}
+    my_global_variables.model_cross_validation[class_name] = {'mean':mean, 'variance': variance}
   if print_out:
     print(f'{cv} fold cross-validation for -- {class_name}-- Model \n\n')
     print(f'cross validation score for {cv} fold cross-validation is:-- \n {cross_val_scores}\n\n')
