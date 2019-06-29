@@ -1,5 +1,5 @@
 def get_cross_validation(X, y, model, cv = 10, print_out = True, variable = True):
-  import settings
+  import my_global_variables
   import numpy as np
   class_name = model.__class__.__name__
   from sklearn.model_selection import cross_val_score
