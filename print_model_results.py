@@ -1,4 +1,5 @@
 def print_model_results(X_train, X_test,y_train, y_test, model, variable = False):
+  from sklearn.metrics import confusion_matrix, classification_report
   if variable:
     global model_score
     global model_cm
