@@ -1,4 +1,5 @@
 def print_model_results(X_train, X_test,y_train, y_test, model, variable = True):
+  import my_global_variables
   from sklearn.metrics import confusion_matrix, classification_report
   from sklearn.metrics import confusion_matrix, classification_report
   model.fit(X_train, y_train)
