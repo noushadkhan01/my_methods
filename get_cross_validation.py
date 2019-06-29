@@ -13,4 +13,4 @@ def get_cross_validation(X, y, model, cv = 10, print_out = True, variable = True
     print(f'cross validation score for {cv} fold cross-validation is:-- \n {cross_val_scores}\n\n')
     print(f'variance in scores for {cv} fold cross-validationn for {model.__class__.__name__}:-- {variance}\n\n')
     return f'Mean for {cv} fold cross-validation score:-- {mean}'
-  return mean, variance
+  return mean
