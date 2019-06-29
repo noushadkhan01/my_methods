@@ -1,4 +1,5 @@
 def cross_validation(X, y, model, cv = 10, print_out = True, variable = False):
+  import numpy as np
   if variable:
     global cross_val
   class_name = model.__class__.__name__
