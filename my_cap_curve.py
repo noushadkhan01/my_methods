@@ -8,7 +8,7 @@ def my_cap_curve(model, X, y):
   class_0_count = total - class_1_count
   probs = model.predict_proba(X)
   probs = probs[:, 1]
-  model_y = [y for _, y in sorted(zip(probs, y_test), reverse = True)]
+  model_y = [y for _, y in sorted(zip(probs, y), reverse = True)]
   y_values = np.append([0], np.cumsum(model_y))
   x_values = np.arange(0, total + 1)
   plt.plot([0, total], [0, class_1_count], c = 'r', linestyle = '--', label = 'Random Model')
@@ -28,5 +28,5 @@ def my_cap_curve(model, X, y):
   # Area between Trained and Random Model
   aR = auc(x_values, y_values) - a
 
-  print("Accuracy Rate for Support Vector Classifier: {}".format(aR / aP))
+  print("Accuracy Rate for {class_name} Classifier: {}".format(aR / aP))
   my_global_variables.model_cap_scores[class_name] = aR/aP
