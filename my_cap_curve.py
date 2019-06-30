@@ -2,6 +2,7 @@ def my_cap_curve(model, X, y):
   import matplotlib.pyplot as plt
   import numpy as np
   import my_global_variables
+  from sklearn.metrics import roc_curve, auc
   class_name = model.__class__.__name__
   total = len(y)
   class_1_count = np.sum(y)
