@@ -1,4 +1,4 @@
-def my_cap_curve(model, X, y, figsize = (10, 5),legend_font_size = 3,loc = 'best', linewidth = 2,label_font_size = 4, poly_features = False):
+def my_cap_curve(model, X, y, figsize = (10, 5),legend_font_size = 10,loc = 'best', linewidth = 2,label_font_size = 10, poly_features = False):
   import matplotlib.pyplot as plt
   import numpy as np
   import my_global_variables
@@ -32,4 +32,3 @@ def my_cap_curve(model, X, y, figsize = (10, 5),legend_font_size = 3,loc = 'best
   plt.legend(loc = loc, fontsize = legend_font_size)
   plt.show()
   my_global_variables.model_cap_scores[class_name] = aR/aP
-  return aR/aP
