@@ -1,4 +1,4 @@
-def print_model_results(X_train, X_test,y_train, y_test, model, variable = True):
+def print_model_results(X_train, X_test,y_train, y_test, model, variable = True, poly_features = False):
   import my_global_variables
   from sklearn.metrics import confusion_matrix, classification_report
   from sklearn.metrics import confusion_matrix, classification_report
@@ -19,6 +19,10 @@ def print_model_results(X_train, X_test,y_train, y_test, model, variable = True)
   print('\n\n')
   print(f'Test Set classification report is \n {classification_report(y_test, y_pred)}')
   if variable:
-    my_global_variables.model_score[class_name] = {'train':ts, 'test': tst}
-    my_global_variables.model_cm[class_name] = {'train':tcm, 'test':ttcm}
+    if not poly_features:
+      my_global_variables.model_score[class_name] = {'train':ts, 'test': tst}
+      my_global_variables.model_cm[class_name] = {'train':tcm, 'test':ttcm}
+   else:
+      my_global_variables.model_score[class_name + 'poly'] = {'train':ts, 'test': tst}
+      my_global_variables.model_cm[class_name + 'poly'] = {'train':tcm, 'test':ttcm}
   return model
