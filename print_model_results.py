@@ -23,6 +23,6 @@ def print_model_results(X_train, X_test,y_train, y_test, model, variable = True,
       my_global_variables.model_score[class_name] = {'train':ts, 'test': tst}
       my_global_variables.model_cm[class_name] = {'train':tcm, 'test':ttcm}
     else:
-      my_global_variables.model_score[class_name + 'poly'] = {'train':ts, 'test': tst}
-      my_global_variables.model_cm[class_name + 'poly'] = {'train':tcm, 'test':ttcm}
+      my_global_variables.model_score[class_name + '_poly'] = {'train':ts, 'test': tst}
+      my_global_variables.model_cm[class_name + '_poly'] = {'train':tcm, 'test':ttcm}
   return model
