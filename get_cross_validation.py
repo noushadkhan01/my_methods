@@ -1,4 +1,4 @@
-def get_cross_validation(X, y, model, cv = 10, print_out = True, variable = True, poly_fatures = False):
+def get_cross_validation(X, y, model, cv = 10, print_out = True, variable = True, poly_features = False):
   import my_global_variables
   import numpy as np
   class_name = model.__class__.__name__
