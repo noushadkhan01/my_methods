@@ -1,9 +1,12 @@
-def my_roc_curve(model, X, y):
+def my_roc_curve(model, X, y, model_dict = False, poly_features = False):
   import my_global_variables
   import matplotlib.pyplot as plt
   import numpy as np
   from sklearn.metrics import roc_curve, auc
-  class_name = model.__class__.__name__
+  if not poly_features:
+    class_name = model.__class__.__name__
+  else:
+    class_name = model.__class__.__name__ + '_poly'
   y_proba = model.predict_proba(X)
   proba = y_proba[:, 1]
   fpr, tpr, threshold = roc_curve(y, proba)
