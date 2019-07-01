@@ -22,7 +22,7 @@ def print_model_results(X_train, X_test,y_train, y_test, model, variable = True,
     if not poly_features:
       my_global_variables.model_score[class_name] = {'train':ts, 'test': tst}
       my_global_variables.model_cm[class_name] = {'train':tcm, 'test':ttcm}
-   else:
+    else:
       my_global_variables.model_score[class_name + 'poly'] = {'train':ts, 'test': tst}
       my_global_variables.model_cm[class_name + 'poly'] = {'train':tcm, 'test':ttcm}
   return model
