@@ -29,5 +29,5 @@ def my_cap_curve(model, X, y):
   # Area between Trained and Random Model
   aR = auc(x_values, y_values) - a
 
-  print("Accuracy Rate for {class_name} Classifier: {}".format(aR / aP))
+  print(f'Accuracy Rate for {class_name} Classifier: {aR/aP}')
   my_global_variables.model_cap_scores[class_name] = aR/aP
