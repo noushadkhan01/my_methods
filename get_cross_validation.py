@@ -1,4 +1,4 @@
-def get_cross_validation(X, y, model, cv = 10, print_out = True, variable = True, poly_features = False):
+def get_cross_validation(X, y, model, cv = 10, print_out = True, add_variable = True, poly_features = False):
   import my_global_variables
   import numpy as np
   class_name = model.__class__.__name__
@@ -8,7 +8,7 @@ def get_cross_validation(X, y, model, cv = 10, print_out = True, variable = True
   cross_val_scores = cross_val_score(model, X, y, cv = cv)
   mean = np.mean(cross_val_scores)
   variance = cross_val_scores.std()
-  if variable:
+  if add_variable:
     my_global_variables.model_cross_validation[class_name] = {'mean':mean, 'variance': variance}
   if print_out:
     print(f'{cv} fold cross-validation for -- {class_name}-- Model \n\n')
