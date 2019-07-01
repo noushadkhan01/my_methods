@@ -7,7 +7,7 @@ def get_cross_validation(X, y, model, cv = 10, print_out = True, variable = True
   mean = np.mean(cross_val_scores)
   variance = cross_val_scores.std()
   if variable:
-    if not poly_featurers:
+    if not poly_features:
       my_global_variables.model_cross_validation[class_name] = {'mean':mean, 'variance': variance}
     else:
       my_global_variables.model_cross_validation[class_name + 'poly'] = {'mean':mean, 'variance': variance}
