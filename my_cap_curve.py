@@ -1,4 +1,4 @@
-def my_cap_curve(model, X, y, fig_size = (10, 5),legend_font_size = 3,loc = 'best', linewidth = 2,label_font_size = 4, poly_features = False):
+def my_cap_curve(model, X, y, figsize = (10, 5),legend_font_size = 3,loc = 'best', linewidth = 2,label_font_size = 4, poly_features = False):
   import matplotlib.pyplot as plt
   import numpy as np
   import my_global_variables
