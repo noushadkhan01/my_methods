@@ -7,6 +7,9 @@ class MyDummyVariable:
     self.drop_first = drop_first
  
   #fit_transform
+  def __repr__(self):
+    return f'MyDummyVariable(drop_first = {self.drop_first})'
+    
   def fit_transform(self, features):
     '''features must be an dataframe
     it requires an argument features which is a dataframe containing numeric and categorical columns'''
@@ -26,7 +29,7 @@ class MyDummyVariable:
       else:
         categorical_ohe = encoded_column
         
-      return self.combined_dataset(features, categorical_ohe)
+    return self.combined_dataset(features, categorical_ohe)
   
   
   #combine data
