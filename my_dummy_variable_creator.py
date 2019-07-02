@@ -19,16 +19,18 @@ class MyDummyVariable:
     categorical_data = features.select_dtypes(include = 'object')
     categorical_ohe = None
     for i in categorical_data.columns:
+      #print(f'doing for feature {i}')
       ohe = OneHotEncoder(handle_unknown = 'ignore', sparse = False)
       encoded_column = ohe.fit_transform(categorical_data[[i]].values)
+      #print(f'encoded column shape for feature {i} is {encoded_column.shape}')
       if self.drop_first:
         encoded_column = encoded_column[:, 1:]
       MyDummyVariable.ohe_encoders[i] = ohe
-      if categorical_ohe:
+      if type(categorical_ohe) == 'np.int64':
         categorical_ohe = np.concatenate([categorical_ohe, encoded_columns], axis = 1)
       else:
         categorical_ohe = encoded_column
-        
+       
     return self.combined_dataset(features, categorical_ohe)
   
   
@@ -56,9 +58,9 @@ class MyDummyVariable:
       if self.drop_first:
         encoded_column = encoded_column[:, 1:]
       
-      if categorical_ohe:
+      if type(categorical_ohe) == 'np.int64':
         categorical_ohe = np.concatenate([categorical_ohe, encoded_columns], axis = 1)
       else:
         categorical_ohe = encoded_column
         
-      return self.combined_dataset(features, categorical_ohe)
+    return self.combined_dataset(features, categorical_ohe)
