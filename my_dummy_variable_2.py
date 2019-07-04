@@ -17,11 +17,14 @@ class MyDummyVariable:
     import numpy as np
     import pandas as pd
     if self.categorical_features:
-      categorical_data = features.iloc[: ,self.categorical_features]
-      if not self.all_categorical:
-        numeric_data = features.iloc[: , [i for i in np.arange(features.shape[1]) if i not in self.categorical_feature]]
+      if type(self.categorical_features) == list or type(self.categorical_features) == tuple:
+        categorical_data = features.iloc[: ,self.categorical_features]
+        if not self.all_categorical:
+          numeric_data = features.iloc[: , [i for i in np.arange(features.shape[1]) if i not in self.categorical_feature]]
+        else:
+          numeric_features = pd.DataFrame()
       else:
-        numeric_features = pd.DataFrame()
+        raise TypeError(f'Type of Categorical_fetures {self.categorical_features} must be list or tuple')
     else:
       categorical_data = features.select_dtypes(include = 'object')
       numeric_data = features.select_dtypes(exclude = 'object')
@@ -31,7 +34,7 @@ class MyDummyVariable:
   def fit_transform(self, features):
     '''features must be an dataframe
     it requires an argument features which is a dataframe containing numeric and categorical columns'''
-    from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+    from sklearn.preprocessing OneHotEncoder
     import numpy as np
     import pandas as pd
     categorical_data, numeric_data = separate_data(features)
@@ -49,16 +52,13 @@ class MyDummyVariable:
       else:
         categorical_ohe = encoded_column
        
-    return self.combined_dataset(features, categorical_ohe)
+    return self.combined_dataset(features, categorical_ohe, numeric_data)
   
   
   #combine data
-  def combined_dataset(self, features, categorical_ohe):
+  def combined_dataset(self, features, categorical_ohe, numeric_data):
     import numpy as np
     #combine categorical_ohe and numeric columns
-    numeric_data = features.select_dtypes(exclude = 'object').values
-    
-    #OneHotEncoded Data 
     ohe_data = np.concatenate([categorical_ohe, numeric_data], axis = 1)
     return ohe_data
   
@@ -66,10 +66,10 @@ class MyDummyVariable:
   def transform(self, features):
     '''features must be an dataframe
     it requires an argument features which is a dataframe containing numeric and categorical columns'''
-    from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+    from sklearn.preprocessing import OneHotEncoder
     import numpy as np
     import pandas as pd
-    categorical_data = features.select_dtypes(include = 'object')
+    categorical_data, numeric_data = self.separate_data(features)
     categorical_ohe = None
     for i in categorical_data.columns:
       encoded_column = MyDummyVariable.ohe_encoders[i].transform(categorical_data[[i]].values)
@@ -81,4 +81,4 @@ class MyDummyVariable:
       else:
         categorical_ohe = encoded_column
         
-    return self.combined_dataset(features, categorical_ohe)
+    return self.combined_dataset(features, categorical_ohe, numeric_data)
