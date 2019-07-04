@@ -82,8 +82,7 @@ class MyDummyVariable:
     for i in categorical_data.columns:
       encoded_columns = self.ohe_encoders[i].transform(categorical_data[[i]].values)
       if self.drop_first:
-        if self.return_dataframe:
-          encoded_columns = encoded_columns[:, 1:]
+        encoded_columns = encoded_columns[:, 1:]
       
       if str(type(categorical_ohe)) in "<class 'numpy.ndarray'>":
         categorical_ohe = np.concatenate([categorical_ohe, encoded_columns], axis = 1)
