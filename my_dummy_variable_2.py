@@ -28,7 +28,7 @@ class MyDummyVariable:
     else:
       categorical_data = features.select_dtypes(include = 'object')
       numeric_data = features.select_dtypes(exclude = 'object')
-   return categorical_data, numeric_data
+    return categorical_data, numeric_data
     
     
   def fit_transform(self, features):
