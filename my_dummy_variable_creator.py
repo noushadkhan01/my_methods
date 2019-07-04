@@ -14,7 +14,7 @@ class MyDummyVariable:
   #fit_transform
   def __repr__(self):
     return f'MyDummyVariable(drop_first = {self.drop_first}, categorical_features = {self.categorical_features},\n \t\t\t all_categorical = {self.all_categorical}\
-    return_dataframe = {self.return_dataframe})'
+    ,return_dataframe = {self.return_dataframe})'
 
   #separate numerica and categorical data
   def separate_data(self, features):
