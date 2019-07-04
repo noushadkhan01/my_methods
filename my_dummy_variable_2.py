@@ -34,7 +34,7 @@ class MyDummyVariable:
   def fit_transform(self, features):
     '''features must be an dataframe
     it requires an argument features which is a dataframe containing numeric and categorical columns'''
-    from sklearn.preprocessing OneHotEncoder
+    from sklearn.preprocessing import OneHotEncoder
     import numpy as np
     import pandas as pd
     categorical_data, numeric_data = separate_data(features)
