@@ -36,6 +36,7 @@ class MyDummyVariable:
   #combine data
   def combined_dataset(self, categorical_ohe, numeric_data):
     import numpy as np
+    import pandas as pd
     #combine categorical_ohe and numeric columns
     ohe_data = np.concatenate([categorical_ohe, numeric_data], axis = 1)
     if self.return_dataframe:
