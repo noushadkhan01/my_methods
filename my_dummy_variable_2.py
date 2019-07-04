@@ -20,7 +20,7 @@ class MyDummyVariable:
       if type(self.categorical_features) == list or type(self.categorical_features) == tuple:
         categorical_data = features.iloc[: ,self.categorical_features]
         if not self.all_categorical:
-          numeric_data = features.iloc[: , [i for i in np.arange(features.shape[1]) if i not in self.categorical_feature]]
+          numeric_data = features.iloc[: , [i for i in np.arange(features.shape[1]) if i not in self.categorical_features]]
         else:
           numeric_features = pd.DataFrame()
       else:
