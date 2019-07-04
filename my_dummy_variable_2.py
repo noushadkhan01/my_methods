@@ -37,7 +37,7 @@ class MyDummyVariable:
     from sklearn.preprocessing import OneHotEncoder
     import numpy as np
     import pandas as pd
-    categorical_data, numeric_data = separate_data(features)
+    categorical_data, numeric_data = self.separate_data(features)
     categorical_ohe = None
     for i in categorical_data.columns:
       #print(f'doing for feature {i}')
