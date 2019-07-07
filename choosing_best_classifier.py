@@ -1,4 +1,4 @@
-def best_classifier(X, y, C = 1.0, n_neighbors = 5, max_depth = 10, svc_kernel = 'rbf'):
+def choosing_best_classifier(X, y, C = 1.0, n_neighbors = 5, max_depth = 10, svc_kernel = 'rbf'):
   import matplotlib.pyplot as plt
   from sklearn import model_selection
   from sklearn.model_selection import cross_val_score
