@@ -1,4 +1,4 @@
-def visualise_classifier_performance(X_train, X_test, y_train, y_test, classifier, important_parameter = None, classifier_parameters = False):
+def visualise_classifier_performance(X_train, X_test, y_train, y_test, classifier, important_parameter = None, classifier_parameters = False, feature_1 = 'Age', feature_2 = 'Estimated_Salary'):
   #import dependencies
   import matplotlib.pyplot as plt
   import numpy as np
@@ -18,15 +18,15 @@ def visualise_classifier_performance(X_train, X_test, y_train, y_test, classifie
   X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
                        np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.01))
   plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.shape),
-               alpha = 0.75, cmap = ListedColormap(('red', 'green')))
+               alpha = 0.75, cmap = 'coolwarm'))
   plt.xlim(X1.min(), X1.max())
   plt.ylim(X2.min(), X2.max())
   for i, j in enumerate(np.unique(y_set)):
       plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                   c = ListedColormap(('red', 'green'))(i), label = j)
   plt.title(f'{className}({important_parameter} = {imp_feat_value}) Classifier (Training set)')
-  plt.xlabel('Age')
-  plt.ylabel('Estimated Salary')
+  plt.xlabel(feature_1)
+  plt.ylabel(feature_2)
   plt.legend(loc = (1.07, 0.8))
   plt.show()
 
@@ -36,14 +36,14 @@ def visualise_classifier_performance(X_train, X_test, y_train, y_test, classifie
   X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
                        np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.01))
   plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.shape),
-               alpha = 0.75, cmap = ListedColormap(('red', 'green')))
+               alpha = 0.75, cmap = 'coolwarm'))
   plt.xlim(X1.min(), X1.max())
   plt.ylim(X2.min(), X2.max())
   for i, j in enumerate(np.unique(y_set)):
       plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                   c = ListedColormap(('red', 'green'))(i), label = j)
   plt.title(f'{className}({important_parameter} = {imp_feat_value}) Classifier (Test set)')
-  plt.xlabel('Age')
-  plt.ylabel('Estimated Salary')
+  plt.xlabel(feature_1)
+  plt.ylabel(feature_2)
   plt.legend(loc = (1.07, 0.8))
   plt.show()
