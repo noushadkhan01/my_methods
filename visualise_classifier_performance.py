@@ -1,10 +1,16 @@
-def visualise_classifier_performance(X_train, X_test, y_train, y_test, classifier, important_parameter = None, classifier_parameters = False,colors = ('green', 'red'), x_label = 'Age', y_label = 'Estimated_Salary'):
+def visualise_classifier_performance(X_train, X_test, y_train, y_test, classifier, important_parameter = None, 
+                                     classifier_parameters = False,colors = ('green', 'red'),
+                                     x_label = 'Age', y_label = 'Estimated_Salary', subplot = (3, 2, 1), figsize = (15, 15), 
+                                    loc = (.5, .4)):
   #import dependencies
   import matplotlib.pyplot as plt
   import numpy as np
   from matplotlib.colors import ListedColormap  
   className = classifier.__class__.__name__
   print(f'{className} Classifier \n')
+  plt.figure(figsize = figsize)
+  if subplot:
+    rows, columns, num = subplot
   if classifier_parameters:
     print(classifier)
     print('\n\n')
@@ -15,6 +21,8 @@ def visualise_classifier_performance(X_train, X_test, y_train, y_test, classifie
     important_parameter = 'not provided'
     imp_feat_value = ''
   X_set, y_set = X_train, y_train
+  if subplot:
+    plt.subplot(rows, columns, num)
   X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
                        np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.01))
   plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.shape),
@@ -27,10 +35,14 @@ def visualise_classifier_performance(X_train, X_test, y_train, y_test, classifie
   plt.title(f'{className}({important_parameter} = {imp_feat_value}) Classifier (Training set)')
   plt.xlabel(x_label)
   plt.ylabel(y_label)
-  plt.legend(loc = (1.07, 0.8))
-  plt.show()
+  plt.legend(loc = loc)
+  if not subplot:
+    plt.show()
+  num += 1
 
   # Visualising the Test set results
+  if subplot:
+    plt.subplot(rows, columns, num)
   X_set, y_set = X_test, y_test
   X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
                        np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.01))
@@ -44,5 +56,6 @@ def visualise_classifier_performance(X_train, X_test, y_train, y_test, classifie
   plt.title(f'{className}({important_parameter} = {imp_feat_value}) Classifier (Test set)')
   plt.xlabel(x_label)
   plt.ylabel(y_label)
-  plt.legend(loc = (1.07, 0.8))
-  plt.show()
+  plt.legend(loc = loc)
+  if not subplot:
+    plt.show()
