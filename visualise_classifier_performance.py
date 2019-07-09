@@ -1,14 +1,13 @@
 def visualise_classifier_performance(X_train, X_test, y_train, y_test, classifier, important_parameter = None, 
                                      classifier_parameters = False,colors = ('green', 'red'),
-                                     x_label = 'Age', y_label = 'Estimated_Salary', subplot = (3, 2, 1), figsize = (15, 15), 
-                                    loc = (.5, .4)):
+                                     x_label = 'Age', y_label = 'Estimated_Salary', subplot = (3, 2, 1), 
+                                    loc = (1.07, .9)):
   #import dependencies
   import matplotlib.pyplot as plt
   import numpy as np
   from matplotlib.colors import ListedColormap  
   className = classifier.__class__.__name__
   print(f'{className} Classifier \n')
-  plt.figure(figsize = figsize)
   if subplot:
     rows, columns, num = subplot
   if classifier_parameters:
