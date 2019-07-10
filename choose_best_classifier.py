@@ -18,7 +18,7 @@ def choose_best_classifier(X, y, C = 1.0, n_neighbors = 5, max_depth = 10, svc_k
   models.append(('PCA with LR', LogisticRegression(C = C)))
   models.append(('LR', LogisticRegression(C = C)))
   models.append(('LDA', LinearDiscriminantAnalysis()))
-  models.append(('KNN', KNeighborsClassifier(n_neighbors = 5)))
+  models.append(('KNN', KNeighborsClassifier(n_neighbors = n_neighbors)))
   models.append(('DTree', DecisionTreeClassifier(max_depth = max_depth)))
   models.append(('NB', GaussianNB()))
   models.append(('SVM', SVC(kernel = svc_kernel)))
