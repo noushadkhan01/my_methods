@@ -1,11 +1,11 @@
-def get_cross_validation(X, y, model, cv = 10, print_out = True, add_variable = True, poly_features = False, extra_feature = None):
+def get_cross_validation(X, y, model, cv = 10, print_out = True, add_variable = True, poly_features = False, extra_name = None):
   import my_global_variables
   import numpy as np
   class_name = model.__class__.__name__
   if poly_features:
     class_name += '_poly'
-  if extra_feature:
-    class_name += '_' + extra_feature
+  if extra_name:
+    class_name += '_' + extra_name
   from sklearn.model_selection import cross_val_score
   cross_val_scores = cross_val_score(model, X, y, cv = cv)
   mean = np.mean(cross_val_scores)
