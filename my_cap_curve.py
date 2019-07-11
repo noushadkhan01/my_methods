@@ -1,4 +1,5 @@
-def my_cap_curve(model, X, y, figsize = (10, 5),legend_font_size = 10,loc = 'best', linewidth = 2,label_font_size = 10, poly_features = False):
+def my_cap_curve(model, X, y, figsize = (10, 5),legend_font_size = 10,loc = 'best',
+                 linewidth = 2,label_font_size = 10, poly_features = False, extra_feature = None):
   import matplotlib.pyplot as plt
   import numpy as np
   import my_global_variables
@@ -6,6 +7,8 @@ def my_cap_curve(model, X, y, figsize = (10, 5),legend_font_size = 10,loc = 'bes
   class_name = model.__class__.__name__
   if poly_features:
     class_name = class_name + '_poly'
+  if extra_feature:
+    class_name += extra_feature
   total = len(y)
   class_1_count = np.sum(y)
   class_0_count = total - class_1_count
