@@ -1,4 +1,5 @@
-def my_roc_curve(model, X, y, fig_size = (10, 5),legend_font_size = 10, loc = 'best', linewidth = 2,label_font_size = 10, poly_features = False):
+def my_roc_curve(model, X, y, fig_size = (10, 5),legend_font_size = 10, loc = 'best', linewidth = 2,
+                 label_font_size = 10, poly_features = False, extra_feature = None):
   import my_global_variables
   import matplotlib.pyplot as plt
   import numpy as np
@@ -6,6 +7,8 @@ def my_roc_curve(model, X, y, fig_size = (10, 5),legend_font_size = 10, loc = 'b
   class_name = model.__class__.__name__
   if poly_features:
     class_name += '_poly'
+  if extra_feature:
+    class_name += extra_feature
   y_proba = model.predict_proba(X)
   proba = y_proba[:, 1]
   fpr, tpr, threshold = roc_curve(y, proba)
