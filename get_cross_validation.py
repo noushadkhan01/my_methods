@@ -5,7 +5,7 @@ def get_cross_validation(X, y, model, cv = 10, print_out = True, add_variable = 
   if poly_features:
     class_name += '_poly'
   if extra_feature:
-    class_name += extra_feature
+    class_name += '_' + extra_feature
   from sklearn.model_selection import cross_val_score
   cross_val_scores = cross_val_score(model, X, y, cv = cv)
   mean = np.mean(cross_val_scores)
