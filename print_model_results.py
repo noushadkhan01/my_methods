@@ -6,7 +6,7 @@ def print_model_results(X_train, X_test,y_train, y_test, model, add_variable = T
   if poly_features:
     class_name += '_poly'
   if extra_feature:
-    class_name += extra_feature
+    class_name += '_' + extra_feature
   model.fit(X_train, y_train)
   ts = model.score(X_train, y_train)
   print(F' Train score is {ts}')
