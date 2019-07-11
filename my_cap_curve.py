@@ -8,7 +8,7 @@ def my_cap_curve(model, X, y, figsize = (10, 5),legend_font_size = 10,loc = 'bes
   if poly_features:
     class_name = class_name + '_poly'
   if extra_feature:
-    class_name += extra_feature
+    class_name += '_' + extra_feature
   total = len(y)
   class_1_count = np.sum(y)
   class_0_count = total - class_1_count
