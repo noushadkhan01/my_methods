@@ -1,10 +1,12 @@
-def print_model_results(X_train, X_test,y_train, y_test, model, add_variable = True, poly_features = False):
+def print_model_results(X_train, X_test,y_train, y_test, model, add_variable = True, poly_features = False, extra_feature = None):
   import my_global_variables
   from sklearn.metrics import confusion_matrix, classification_report
   from sklearn.metrics import confusion_matrix, classification_report
   class_name = model.__class__.__name__
   if poly_features:
     class_name += '_poly'
+  if extra_feature:
+    class_name += extra_feature
   model.fit(X_train, y_train)
   ts = model.score(X_train, y_train)
   print(F' Train score is {ts}')
