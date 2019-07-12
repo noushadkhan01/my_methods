@@ -2,13 +2,17 @@ class MyDummyVariable:
   '''it is a class to get dummy variable from a dataframe in this method we are using OneHotEncoder 
     and this method automatically distinguish numeric and categorical columns'''
   #initialize OneHotEncoder for future use when we transform data
-  def __init__(self, drop_first = True, categorical_features = None, all_categorical = False, return_dataframe = True):
+  def __init__(self, drop_first = True, categorical_features = None, all_categorical = False, 
+               return_dataframe = True, labeled_features = None, all_labeled = False, unique_threshold = 5):
     self.drop_first = drop_first
     self.categorical_features = categorical_features
     self.all_categorical = all_categorical
     self.return_dataframe = return_dataframe
     self.ohe_encoders = {}
     self.sorted_unique_values = []
+    self.labeled_features = labeled_features
+    self.unique_threshold = unique_threshold
+    self.all_labeled = all_labeled
   
  
   #fit_transform
@@ -21,10 +25,10 @@ class MyDummyVariable:
     import numpy as np
     import pandas as pd
     if self.categorical_features:
-      if type(self.categorical_features) == list or type(self.categorical_features) == tuple:
+      if 'list' in str(type(self.categorical_features)):
         categorical_data = features.iloc[: ,self.categorical_features]
         if not self.all_categorical:
-          numeric_data = features.iloc[: , [i for i in np.arange(features.shape[1]) if i not in self.categorical_features]]
+          numeric_data = features.drop(categorical_data.columns, axis = 1)
         else:
           numeric_data = pd.DataFrame()
       else:
@@ -32,6 +36,32 @@ class MyDummyVariable:
     else:
       categorical_data = features.select_dtypes(include = 'object')
       numeric_data = features.select_dtypes(exclude = 'object')
+      
+    if self.labeled_features:
+      if 'list' in str(type(self.labeled_features)):
+        labeled_data = features.iloc[:, self.labeled_features]
+        numeric_data = numeric_data.drop(labeled_data.columns, axis = 1)
+        categorical_data = pd.concat([categorical_data, labeled_data], axis = 1)
+      else:
+        raise TypeError('labeled_feature values must be in a list')
+    labeled_columns = []
+    if self.all_labeled:
+      for i in numeric_data.columns:
+        if numeric_data[i].nunique() <= self.unique_threshold:
+          if numeric_data[i].nunique() <= 2:
+            if numeric_data[i].nunique() == 2:
+              unique_values = numeric_data[i].unique()
+              if not (0 in unique_values and 1 in unique_values):
+                labeled_columns.append(i)
+            else:
+              #useless column all values are same
+              numeric_data.drop([i], axis = 1)
+          else:
+            labeled_columns.append(i)
+      #print(numeric_data[labeled_columns])
+      categorical_data = pd.concat([categorical_data, numeric_data[labeled_columns]], axis = 1) 
+      numeric_data.drop(labeled_columns, axis = 1, inplace = True)
+    
     return categorical_data, numeric_data
   
   #combine data
