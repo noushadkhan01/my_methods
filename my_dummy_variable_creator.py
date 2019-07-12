@@ -60,7 +60,7 @@ class MyDummyVariable:
             labeled_columns.append(i)
       #print(numeric_data[labeled_columns])
       categorical_data = pd.concat([categorical_data, numeric_data[labeled_columns]], axis = 1) 
-      numeric_data.drop(labeled_columns, axis = 1, inplace = True)
+      numeric_data = numeric_data.drop(labeled_columns, axis = 1)
     
     return categorical_data, numeric_data
   
