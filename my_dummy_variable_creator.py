@@ -1,9 +1,49 @@
-class MyDummyVariable:
+ class MyDummyVariable:
   '''it is a class to get dummy variable from a dataframe in this method we are using OneHotEncoder 
-    and this method automatically distinguish numeric and categorical columns'''
+    and this method automatically distinguish numeric and categorical columns
+    
+    =====================================================================================================
+    def __init__(self, drop_first = True, categorical_features = None, all_categorical = False, 
+               return_dataframe = True, labeled_features = None, all_labeled = False, unique_threshold = 5, dropna = False)
+   =======================================================================================================
+   drop_first = default is True, it drops first column for OneHotEncoded Categorical Column
+   
+   ------------------------------------------------------------------------------------------------------------------
+   
+   categorical_features = default is None, pass features columns index in a list if you want to specify column on your own
+   
+   -------------------------------------------------------------------------------------------------------------------
+   
+   all_categorical = default is False, if it is True then the program consider all the variables as categorical features and this program
+                     OneHotEncode all features
+                     
+   ---------------------------------------------------------------------------------------------------------------------
+  
+   return_datafram = default is True, if False then it returs a numpy array
+   
+   ----------------------------------------------------------------------------------------------------------------------
+   
+   labeled_features = default is None, pass labeled feature index in a list if you want to OneHotEncode specific labeled 
+   (numeric column containing less number of unique values) columns into OneHotEncode
+   
+   ----------------------------------------------------------------------------------------------------------------------
+   
+   
+   all_labeld = default is False, pass it True if you want to OneHotEncode all labeled features when a unique values in any features are
+                less than or equeal to unique threshold which is default to 5, you can change
+                unique_threshold in next parameter,
+   -----------------------------------------------------------------------------------------------------------------------
+   
+   unique_threshold = default is 5, it is related to all_labeld parameter pass another value if you want to define you onw unique threshold
+   
+   ------------------------------------------------------------------------------------------------------------------------------------------
+   
+   drop_na = default is False if Fasle and the dataframe have null values then it may return error, so clean your data frist or pass drop_na = Tru
+   
+    '''
   #initialize OneHotEncoder for future use when we transform data
   def __init__(self, drop_first = True, categorical_features = None, all_categorical = False, 
-               return_dataframe = True, labeled_features = None, all_labeled = False, unique_threshold = 5):
+               return_dataframe = True, labeled_features = None, all_labeled = False, unique_threshold = 5, drop_na = False):
     self.drop_first = drop_first
     self.categorical_features = categorical_features
     self.all_categorical = all_categorical
@@ -13,17 +53,21 @@ class MyDummyVariable:
     self.labeled_features = labeled_features
     self.unique_threshold = unique_threshold
     self.all_labeled = all_labeled
+    self.drop_na = drop_na
   
  
   #fit_transform
   def __repr__(self):
-    return f'MyDummyVariable(drop_first = {self.drop_first}, categorical_features = {self.categorical_features},\n \t\t\t all_categorical = {self.all_categorical}\
-    ,return_dataframe = {self.return_dataframe})'
+    return f'MyDummyVariable(drop_first = {self.drop_first}, categorical_features = {self.categorical_features},\n \t\t\t \
+     all_categorical = {self.all_categorical} ,return_dataframe = {self.return_dataframe},\
+     labeld_features = {self.labeled_features}, all_labeled = {self.all_labeled}, unique_threshold = {self.unique_threshold}, drop_na = {self.drop_na})'
 
   #separate numerica and categorical data
   def separate_data(self, features):
     import numpy as np
     import pandas as pd
+    if self.drop_na:
+      features = features.dropna()
     if self.categorical_features:
       if 'list' in str(type(self.categorical_features)):
         categorical_data = features.iloc[: ,self.categorical_features]
@@ -44,8 +88,8 @@ class MyDummyVariable:
         categorical_data = pd.concat([categorical_data, labeled_data], axis = 1)
       else:
         raise TypeError('labeled_feature values must be in a list')
-    labeled_columns = []
     if self.all_labeled:
+      labeled_columns = []
       for i in numeric_data.columns:
         if numeric_data[i].nunique() <= self.unique_threshold:
           if numeric_data[i].nunique() <= 2:
@@ -75,8 +119,12 @@ class MyDummyVariable:
     return ohe_data
     
   def fit_transform(self, features):
-    '''features must be an dataframe
-    it requires an argument features which is a dataframe containing numeric and categorical columns'''
+    '''fit transofrm dataframe into OneHotEncoded dataframe or numpy array
+    fit_transfrom(features)
+    
+    features = a dataframe contaning any datatype
+    
+    '''
     from sklearn.preprocessing import OneHotEncoder
     import numpy as np
     import pandas as pd
