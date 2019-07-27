@@ -1,4 +1,4 @@
- class MyDummyVariable:
+class MyDummyVariable:
   '''it is a class to get dummy variable from a dataframe in this method we are using OneHotEncoder 
     and this method automatically distinguish numeric and categorical columns
     
