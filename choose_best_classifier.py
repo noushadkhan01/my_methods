@@ -1,5 +1,6 @@
 def choose_best_classifier(X, y, C = 1.0,figsize = (10, 5), n_neighbors = 5, max_depth = 10,
-                           svc_kernel = 'rbf', n_components = 2, max_depth_xgb = 4, n_estimators = 10, x_ticks_rotation = -40):
+                           svc_kernel = 'rbf', n_components = 2, max_depth_xgb = 4, n_estimators = 10, x_ticks_rotation = -40,
+                           plt_show = False):
   import matplotlib.pyplot as plt
   from sklearn import model_selection
   from sklearn.model_selection import cross_val_score
@@ -48,4 +49,5 @@ def choose_best_classifier(X, y, C = 1.0,figsize = (10, 5), n_neighbors = 5, max
   plt.boxplot(results)
   ax.set_xticklabels(names)
   plt.xticks(rotation = x_ticks_rotation)
-  #plt.show()
+  if plt_show:
+    plt.show()
