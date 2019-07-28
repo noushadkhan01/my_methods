@@ -1,7 +1,8 @@
-def choose_best_classifier(X, y, C = 1.0,figsize = (10, 5), n_neighbors = 5, max_depth = 10,
+def choose_best_classifier(X, y, C = 1.0,figsize = None, n_neighbors = 5, max_depth = 10,k_fold = 10,
                            svc_kernel = 'rbf', n_components = 2, max_depth_xgb = 4, n_estimators = 10, x_ticks_rotation = -40,
-                           plt_show = False, print_results = True, dependent_variable = None):
+                           plt_show = False, print_results = True, dependent_variable = None, verbose = 0):
   import matplotlib.pyplot as plt
+  import sys
   from sklearn import model_selection
   from sklearn.model_selection import cross_val_score
   from sklearn.linear_model import LogisticRegression
@@ -13,6 +14,13 @@ def choose_best_classifier(X, y, C = 1.0,figsize = (10, 5), n_neighbors = 5, max
   from sklearn.decomposition import PCA
   from sklearn.naive_bayes import GaussianNB
   from sklearn.svm import SVC 
+  
+  #name of dependent variable
+  if not dependent_variable:
+    try:
+      dependent_variable = y.Name
+    except:
+      dependent_variable = None
   # prepare configuration for cross validation test harness
   seed = 7
   # prepare models
@@ -32,8 +40,13 @@ def choose_best_classifier(X, y, C = 1.0,figsize = (10, 5), n_neighbors = 5, max
   results = []
   names = []
   scoring = 'accuracy'
+  l = len(models)
+  n = 1
   for name, model in models:
-    kfold = model_selection.KFold(n_splits=10, random_state=seed)
+    if verbose:
+      sys.stdout.write(f'\r running {k_fold} cross validation for {dependent_variable}\'s model No. {n}/{l}')
+    kfold = model_selection.KFold(n_splits=k_fold, random_state=seed)
+    n += 1
     features = X
     if name == 'PCA with LR':
       features = X_pca
@@ -44,15 +57,14 @@ def choose_best_classifier(X, y, C = 1.0,figsize = (10, 5), n_neighbors = 5, max
     if print_results:
       print(msg)
   # boxplot algorithm comparison
-  fig = plt.figure(figsize = figsize)
-  if dependent_variable:
-    title = f'Algorithm Comaprision for {dependent_variable}'
-  else:
-    title = 'Algorithm Comparision'
-  fig.suptitle(title)
-  ax = fig.add_subplot(111)
+  title = f'Algorithm Comaprision for {dependent_variable}'
+  sys.stdout.write(f'\r Done for {dependent_variable}\'s model')
+  if figsize:
+    plt.figure(figsize = figsize)
+  plt.title(title)
   plt.boxplot(results)
-  ax.set_xticklabels(names)
-  plt.xticks(rotation = x_ticks_rotation)
+  ypos = np.arange(1, len(names)+1)
+  plt.xticks(ypos, names, rotation = x_ticks_rotation)
+  sys.stdout.write('\r Done')
   if plt_show:
     plt.show()
