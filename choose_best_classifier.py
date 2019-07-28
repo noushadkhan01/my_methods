@@ -1,6 +1,6 @@
 def choose_best_classifier(X, y, C = 1.0,figsize = (10, 5), n_neighbors = 5, max_depth = 10,
                            svc_kernel = 'rbf', n_components = 2, max_depth_xgb = 4, n_estimators = 10, x_ticks_rotation = -40,
-                           plt_show = False):
+                           plt_show = False, print_results = True, dependent_variable = None):
   import matplotlib.pyplot as plt
   from sklearn import model_selection
   from sklearn.model_selection import cross_val_score
@@ -41,10 +41,15 @@ def choose_best_classifier(X, y, C = 1.0,figsize = (10, 5), n_neighbors = 5, max
     results.append(cv_results)
     names.append(name)
     msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
-    print(msg)
+    if print_results:
+      print(msg)
   # boxplot algorithm comparison
   fig = plt.figure(figsize = figsize)
-  fig.suptitle('Algorithm Comparison')
+  if dependent_variable:
+    title = f'Algorithm Comaprision for {dependent_variable}'
+  else:
+    title = 'Algorithm Comparision'
+  fig.suptitle(title)
   ax = fig.add_subplot(111)
   plt.boxplot(results)
   ax.set_xticklabels(names)
