@@ -19,7 +19,7 @@ def choose_best_classifier(X, y, C = 1.0,figsize = None, n_neighbors = 5, max_de
   #name of dependent variable
   if not dependent_variable:
     try:
-      dependent_variable = y.Name
+      dependent_variable = y.name
     except:
       dependent_variable = None
   # prepare configuration for cross validation test harness
