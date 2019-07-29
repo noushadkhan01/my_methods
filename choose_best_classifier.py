@@ -3,6 +3,7 @@ def choose_best_classifier(X, y, C = 1.0,figsize = None, n_neighbors = 5, max_de
                            plt_show = False, print_results = True, dependent_variable = None, verbose = 0):
   import matplotlib.pyplot as plt
   import sys
+  import numpy as np
   from sklearn import model_selection
   from sklearn.model_selection import cross_val_score
   from sklearn.linear_model import LogisticRegression
