@@ -1,4 +1,4 @@
-def my_backward_propagation(X_opt, model = None, adj_r2 = 0):
+def my_backward_propagation(X_opt,y, model = None, adj_r2 = 0):
   '''This method automatically return a model with optimal number of independent variable those are perfect for our dependent variable
   my_backward_propagation(X_opt, model = None, adj_r2 = 0)
   where 
@@ -28,5 +28,5 @@ def my_backward_propagation(X_opt, model = None, adj_r2 = 0):
     X_opt = np.delete(X_opt, max_pval_col, 1)
     
     #recursive this program for next model
-    return my_regressor_OLS(X_opt,model = regressor_OLS, adj_r2 = adj_r2_now)
+    return my_regressor_OLS(X_opt,y, model = regressor_OLS, adj_r2 = adj_r2_now)
   return model
