@@ -3,7 +3,7 @@ class MyDummyVariable:
     and this method automatically distinguish numeric and categorical columns
     
     =====================================================================================================
-    def __init__(self, drop_first = True, categorical_features = None, all_categorical = False, 
+    MyDummyVariable(self, drop_first = True, categorical_features = None, all_categorical = False, 
                return_dataframe = True, labeled_features = None, all_labeled = False, unique_threshold = 5, dropna = False)
    =======================================================================================================
    drop_first = default is True, it drops first column for OneHotEncoded Categorical Column
