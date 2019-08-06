@@ -54,7 +54,7 @@ class SGDNeuralNet:
     
   
   #fit neural_net
-  def fit(self, X, y, epochs = 100,alpha = .01, **kwargs):
+  def fit(self, X, y, epochs = 100, alpha = .01,n_percent = 10, **kwargs):
     import numpy as np
     assert(X.ndim == 2)
     assert(y.ndim == 2)
@@ -108,7 +108,7 @@ class SGDNeuralNet:
             deriv = 1
           self.layers_identity['weights' + name] -= self.weight_deltas['weight_delta' + name]*alpha*deriv
           n += 1
-      if (epoch + 1) % 10 == 0:
+      if (epoch + 1) % n_percent == 0:
         print(f'Iteration no. {epoch + 1} / {epochs}, error is {np.sum(self.total_error)}')
       
   def predict(self, X):
