@@ -33,8 +33,16 @@ class SGDNeuralNet:
     return sigma * np.random.randn(rows, cols) + mean'''
   def initialize_weights(self, shape, **kwargs):
     import numpy as np
-    np.random.seed(1)
-    return 2 *np.random.random(shape) - 1
+    sigma = kwargs.get('sigma')
+    mean = kwargs.get('mean')
+    random_state = kwargs.get('random_state')
+    if random_state:
+      np.random.seed(random_state)
+    if not mean:
+      mean = 1
+    if not sigma:
+      sigma = 2
+    return sigma *np.random.random(shape) - mean
   
   def dense_layer(self, hidden_nodes, activation = None):
     self.n_dense_layers += 1
