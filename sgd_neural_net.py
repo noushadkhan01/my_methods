@@ -1,4 +1,5 @@
 class SGDNeuralNet:
+  import numpy as np
   def __init__(self):
     self.total_error = 0
     self.dense_layers = {}
