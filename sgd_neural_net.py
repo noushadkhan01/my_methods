@@ -124,3 +124,22 @@ class SGDNeuralNet:
       input = out
       n += 1
     return out
+  def score(self, X, y):
+    import numpy as np
+    output = self.predict(X)
+    from sklearn.metrics import r2_score
+    return r2_score(y, output)
+  
+  #error function
+  def error(self, X, y):
+    import numpy as np
+    output = self.predict(X)
+    return np.sum((output - y))
+    
+  #sum of squared_error
+  def mean_squared_error(self, X, y):
+    import numpy as np
+    output = self.predict(X)
+    from sklearn.metrics import mean_squared_error
+    return mean_squared_error(y, output)
+    
