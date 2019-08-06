@@ -7,6 +7,7 @@ class SGDNeuralNet:
   
   #define relu function for +ve real numbers
   def relu(self, outputs):
+    import numpy as np
     return np.maximum(0, outputs)# returns outputs if outputs > 0
                        # return 0 otherwise
   #relu derivative
@@ -54,6 +55,7 @@ class SGDNeuralNet:
   
   #fit neural_net
   def fit(self, X, y, epochs = 100,alpha = .01, **kwargs):
+    import numpy as np
     assert(X.ndim == 2)
     assert(y.ndim == 2)
     if not (y.shape[1] == 1 and y.shape[0] >= y.shape[1]):
@@ -110,6 +112,7 @@ class SGDNeuralNet:
         print(f'Iteration no. {epoch + 1} / {epochs}, error is {np.sum(self.total_error)}')
       
   def predict(self, X):
+    import numpy as np
     '''X must be a 2 d array'''
     input = X
     n = 1
