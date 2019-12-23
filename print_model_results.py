@@ -16,7 +16,7 @@ def print_model_results(X_train, X_test,y_train, y_test, model, add_variable = T
   print(f'Test score is {tst}')
   print('\n\n')
   y_pred = model.predict(X_test)
-  if classificaiton:
+  if classification:
     tcm = confusion_matrix(y_train, model.predict(X_train))
     print(f'Train confusion matrix is \n {tcm}\n')
     ttcm = confusion_matrix(y_test, y_pred)
