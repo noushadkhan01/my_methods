@@ -55,6 +55,8 @@ def choose_best_classifier(X, y, C = 1.0,figsize = None, n_neighbors = 5, max_de
     results.append(cv_results)
     names.append(name)
     msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+    if verbose:
+      sys.stdout.flush()
     if print_results:
       print(msg)
   # boxplot algorithm comparison
