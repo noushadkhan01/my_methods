@@ -29,12 +29,12 @@ def choose_best_classifier(X, y, C = 1.0,figsize = None, n_neighbors = 5, max_de
   X_pca = pca.fit_transform(X)
   models = []
   models.append(('PCA with LR', LogisticRegression(C = C)))
-  models.append(('LR', LogisticRegression(C = C)))
+  models.append(('Logistic Regression', LogisticRegression(C = C)))
   models.append(('LDA', LinearDiscriminantAnalysis()))
   models.append(('KNN', KNeighborsClassifier(n_neighbors = n_neighbors)))
   models.append(('DTree', DecisionTreeClassifier(max_depth = max_depth)))
   models.append(('RandomForest', RandomForestClassifier(n_estimators = n_estimators, max_depth = max_depth)))
-  models.append(('NB', GaussianNB()))
+  models.append(('Niave Bayes', GaussianNB()))
   models.append(('SVM', SVC(kernel = svc_kernel)))
   models.append(('Xgboost', XGBClassifier(max_depth = max_depth_xgb)))
   # evaluate each model in turn
@@ -54,7 +54,8 @@ def choose_best_classifier(X, y, C = 1.0,figsize = None, n_neighbors = 5, max_de
     cv_results = model_selection.cross_val_score(model, features, y, cv=kfold, scoring=scoring)
     results.append(cv_results)
     names.append(name)
-    msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+    #msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+    msg = f'scores mean is {cv_results.mean()}, variance in scores is {cv_results.std()}'
     if verbose:
       sys.stdout.flush()
     if print_results:
