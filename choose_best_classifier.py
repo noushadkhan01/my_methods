@@ -43,7 +43,7 @@ def choose_best_classifier(X, y, C = 1.0, figsize = None, n_neighbors = 5, max_d
   models.append(('KNN', KNeighborsClassifier(n_neighbors = n_neighbors)))
   models.append(('DTree', DecisionTreeClassifier(max_depth = max_depth)))
   models.append(('RandomForest', RandomForestClassifier(n_estimators = n_estimators, max_depth = max_depth)))
-  models.append(('Niave Bayes', GaussianNB()))
+  models.append(('Naive Bayes', GaussianNB()))
   models.append(('SVM', SVC(kernel = svc_kernel)))
   models.append(('Xgboost', XGBClassifier(max_depth = max_depth_xgb)))
   # evaluate each model in turn
