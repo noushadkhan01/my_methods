@@ -54,7 +54,7 @@ def choose_best_classifier(X, y, C = 1.0,figsize = None, n_neighbors = 5, max_de
     cv_results = model_selection.cross_val_score(model, features, y, cv=kfold, scoring=scoring)
     results.append(cv_results)
     names.append(name)
-    msg = f'name: -- scores mean is {cv_results.mean()}, variance in scores is {cv_results.std()}'
+    msg = f'{name}: -- scores mean is {cv_results.mean()}, variance in scores is {cv_results.std()}'
     if verbose:
       sys.stdout.flush()
     if print_results:
