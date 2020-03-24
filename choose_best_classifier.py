@@ -1,9 +1,19 @@
-def choose_best_classifier(X, y, C = 1.0,figsize = None, n_neighbors = 5, max_depth = 10,k_fold = 10,
+def choose_best_classifier(X, y, C = 1.0, figsize = None, n_neighbors = 5, max_depth = 10,k_fold = 10,
                            svc_kernel = 'rbf', n_components = 2, max_depth_xgb = 4, n_estimators = 10, x_ticks_rotation = -40,
                            plt_show = False, print_results = True, dependent_variable = None, verbose = 0):
+  '''This method returns mean and variance of k_fold fold cross validation scores and 
+  also returns a boxplot of 10 scores for every model
+  
+  
+  k_fold = default is 10
+  
+  C = default is 1.0 for Logistic Regression
+  n_neighbors = 5 for KNearestNeighbors classifier
+  '''
   import matplotlib.pyplot as plt
   import sys
   import numpy as np
+  import pandas as pd
   from sklearn import model_selection
   from sklearn.model_selection import cross_val_score
   from sklearn.linear_model import LogisticRegression
@@ -43,6 +53,8 @@ def choose_best_classifier(X, y, C = 1.0,figsize = None, n_neighbors = 5, max_de
   scoring = 'accuracy'
   l = len(models)
   n = 1
+  if print_results:
+    print('model name:-- scores mean, (scores variance)')
   for name, model in models:
     if verbose:
       sys.stdout.write(f'\r running {k_fold} cross validation for {dependent_variable}\'s model No. {n}/{l}')
@@ -54,11 +66,12 @@ def choose_best_classifier(X, y, C = 1.0,figsize = None, n_neighbors = 5, max_de
     cv_results = model_selection.cross_val_score(model, features, y, cv=kfold, scoring=scoring)
     results.append(cv_results)
     names.append(name)
-    msg = f'{name}: -- scores mean is {cv_results.mean()}, variance in scores is {cv_results.std()}'
+    msg = f'{name}: -- {cv_results.mean()}, ({cv_results.std()})'
     if verbose:
       sys.stdout.flush()
     if print_results:
       print(msg)
+      df = pd.DataFrame(
   # boxplot algorithm comparison
   title = f'Algorithm Comaprision for {dependent_variable}'
   sys.stdout.write(f'\r Done for {dependent_variable}\'s model')
