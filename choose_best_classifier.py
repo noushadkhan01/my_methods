@@ -13,7 +13,6 @@ def choose_best_classifier(X, y, C = 1.0, figsize = None, n_neighbors = 5, max_d
   import matplotlib.pyplot as plt
   import sys
   import numpy as np
-  import pandas as pd
   from sklearn import model_selection
   from sklearn.model_selection import cross_val_score
   from sklearn.linear_model import LogisticRegression
@@ -71,7 +70,6 @@ def choose_best_classifier(X, y, C = 1.0, figsize = None, n_neighbors = 5, max_d
       sys.stdout.flush()
     if print_results:
       print(msg)
-      df = pd.DataFrame(
   # boxplot algorithm comparison
   title = f'Algorithm Comaprision for {dependent_variable}'
   sys.stdout.write(f'\r Done for {dependent_variable}\'s model')
