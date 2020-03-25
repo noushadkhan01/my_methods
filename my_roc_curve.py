@@ -26,8 +26,8 @@ def my_roc_curve(model, X_test, y_test, fig_size = (10, 5),legend_font_size = 10
   roc_auc = auc(fpr, tpr)
   label = f'{class_name} -- {roc_auc}'
   plt.plot(fpr, tpr, c = 'g', label = label, linewidth = linewidth)
-  plt.xlabel('False Positive Rate', fontsize = label_font_size)
-  plt.ylabel('True Positive Rate', fontsize = label_font_size)
+  plt.xlabel('False Positive Rate(1 - Specificity)', fontsize = label_font_size)
+  plt.ylabel('True Positive Rate(Senstitivity)', fontsize = label_font_size)
   plt.title('Receiver Operating Characteristic', fontsize = label_font_size)
   plt.legend(loc = loc, fontsize = legend_font_size)
   plt.show()
