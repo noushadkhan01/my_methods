@@ -21,7 +21,6 @@ def my_roc_curve(model, X_test, y_test, fig_size = (10, 5),legend_font_size = 10
   y_proba = model.predict_proba(X_test)
   proba = y_proba[:, 1]
   fpr, tpr, thresholds = roc_curve(y_test, proba)
-  fpr, tpr, threshold
   ##AUC
   roc_auc = auc(fpr, tpr)
   label = f'{class_name} -- {roc_auc}'
