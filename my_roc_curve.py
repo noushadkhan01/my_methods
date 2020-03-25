@@ -32,4 +32,4 @@ def my_roc_curve(model, X_test, y_test, fig_size = (10, 5),legend_font_size = 10
   plt.legend(loc = loc, fontsize = legend_font_size)
   plt.show()
   my_global_variables.model_roc_auc[class_name] = roc_auc
-  my_global_variables.model_fpr_tpr_threshold[class_name] = (fpr, tpr, thrsehold)
+  my_global_variables.model_fpr_tpr_threshold[class_name] = (fpr, tpr, threshold)
