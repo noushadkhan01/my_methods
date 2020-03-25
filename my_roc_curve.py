@@ -1,5 +1,14 @@
-def my_roc_curve(model, X, y, fig_size = (10, 5),legend_font_size = 10, loc = 'best', linewidth = 2,
-                 label_font_size = 10, poly_features = False, extra_name = None):
+def my_roc_curve(model, X_test, y_test, fig_size = (10, 5),legend_font_size = 10, loc = 'best', linewidth = 2,
+                 label_font_size = 10, poly_features = False, extra_name = None, output = True):
+  '''
+  model : trained model on training data
+  
+  X_test: validation features
+  y_test: validation target variable
+  output : default True 
+               it returns fpr, tpr, threshold
+  
+  '''
   import my_global_variables
   import matplotlib.pyplot as plt
   import numpy as np
@@ -9,9 +18,9 @@ def my_roc_curve(model, X, y, fig_size = (10, 5),legend_font_size = 10, loc = 'b
     class_name += '_poly'
   if extra_name:
     class_name += '_' + extra_name
-  y_proba = model.predict_proba(X)
+  y_proba = model.predict_proba(X_test)
   proba = y_proba[:, 1]
-  fpr, tpr, threshold = roc_curve(y, proba)
+  fpr, tpr, threshold = roc_curve(y_test, proba)
   fpr, tpr, threshold
   ##AUC
   roc_auc = auc(fpr, tpr)
@@ -23,3 +32,5 @@ def my_roc_curve(model, X, y, fig_size = (10, 5),legend_font_size = 10, loc = 'b
   plt.legend(loc = loc, fontsize = legend_font_size)
   plt.show()
   my_global_variables.model_roc_auc[class_name] = roc_auc
+  if output:
+    return = fpr, tpr, threshold
