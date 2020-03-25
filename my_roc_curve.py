@@ -20,7 +20,7 @@ def my_roc_curve(model, X_test, y_test, fig_size = (10, 5),legend_font_size = 10
     class_name += '_' + extra_name
   y_proba = model.predict_proba(X_test)
   proba = y_proba[:, 1]
-  fpr, tpr, threshold = roc_curve(y_test, proba)
+  fpr, tpr, thresholds = roc_curve(y_test, proba)
   fpr, tpr, threshold
   ##AUC
   roc_auc = auc(fpr, tpr)
@@ -32,4 +32,4 @@ def my_roc_curve(model, X_test, y_test, fig_size = (10, 5),legend_font_size = 10
   plt.legend(loc = loc, fontsize = legend_font_size)
   plt.show()
   my_global_variables.model_roc_auc[class_name] = roc_auc
-  my_global_variables.model_fpr_tpr_threshold[class_name] = (fpr, tpr, threshold)
+  my_global_variables.model_fpr_tpr_thresholds[class_name] = (fpr, tpr, thresholds)
