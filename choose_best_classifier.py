@@ -1,4 +1,4 @@
-def choose_best_classifier(X, y, C = 1.0, figsize = None, n_neighbors = 5, max_depth = 10,k_fold = 10,
+def choose_best_classifier(X, y, C = 1.0, figsize = None,k_fold = 10, scoring = None,  n_neighbors = 5, max_depth = 10,
                            svc_kernel = 'rbf', n_components = 2, max_depth_xgb = 4, n_estimators = 10, x_ticks_rotation = -40,
                            plt_show = False, print_results = True, dependent_variable = None, verbose = 0):
   '''This method returns mean and variance of k_fold fold cross validation scores and 
@@ -6,6 +6,7 @@ def choose_best_classifier(X, y, C = 1.0, figsize = None, n_neighbors = 5, max_d
   
   
   k_fold = default is 10
+  scoring = default is None, it's scoring matrix for cross_validation, pass it according to your evaluation type
   
   C = default is 1.0 for Logistic Regression
   n_neighbors = 5 for KNearestNeighbors classifier
@@ -49,7 +50,6 @@ def choose_best_classifier(X, y, C = 1.0, figsize = None, n_neighbors = 5, max_d
   # evaluate each model in turn
   results = []
   names = []
-  scoring = 'accuracy'
   l = len(models)
   n = 1
   if print_results:
