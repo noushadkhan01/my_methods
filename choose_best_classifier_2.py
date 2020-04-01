@@ -1,4 +1,4 @@
-def choose_best_classifier(X, y, C = 1.0, figsize = None,k_fold = 10, scoring = None, x_ticks_rotation = -40,
+def choose_best_classifier(X, y, k_fold = 10, scoring = None, figsize = None,  x_ticks_rotation = -40,
                            plt_show = False, print_results = True, dependent_variable = None, verbose = 0, **kwargs):
   '''This method returns mean and variance of k_fold fold cross validation scores and 
   also returns a boxplot of 10 scores for every model
@@ -48,24 +48,31 @@ def choose_best_classifier(X, y, C = 1.0, figsize = None,k_fold = 10, scoring = 
   # prepare models
   pca = PCA()
   X_pca = pca.fit_transform(X)
-  models = []
-  models.append(('PCA with LR', LogisticRegression()))
-  models.append(('Logistic Regression', LogisticRegression()))
-  models.append(('LDA', LinearDiscriminantAnalysis()))
-  models.append(('KNN', KNeighborsClassifier()))
-  models.append(('DTree', DecisionTreeClassifier()))
-  models.append(('RandomForest', RandomForestClassifier()))
-  models.append(('Naive Bayes', GaussianNB()))
-  models.append(('SVM', SVC()))
-  models.append(('Xgboost', XGBClassifier()))
+  models = {}
+  models['PCA with LR'] = LogisticRegression()
+  models['Logistic Regression'] = LogisticRegression()
+  models['LDA'] = LinearDiscriminantAnalysis()
+  models['KNN'] =  KNeighborsClassifier()
+  models['DTree'] =  DecisionTreeClassifier()
+  models['RandomForest'] = RandomForestClassifier()
+  models['Naive Bayes'] = GaussianNB()
+  models['SVM'] =  SVC()
+  models['Xgboost'] = XGBClassifier()
   # evaluate each model in turn
+  if kwargs:
+    for item, values in kwargs.items():
+      if type(values) is dict:
+        models[item] = models[item].set_params(**values)
+      else:
+        break
+
   results = []
   names = []
   l = len(models)
   n = 1
   if print_results:
     print('model name:-- scores mean, (scores variance)')
-  for name, model in models:
+  for name, model in models.items():
     if verbose:
       sys.stdout.write(f'\r running {k_fold} cross validation for {dependent_variable}\'s model No. {n}/{l}')
     kfold = model_selection.KFold(n_splits=k_fold, random_state=seed)
@@ -76,14 +83,15 @@ def choose_best_classifier(X, y, C = 1.0, figsize = None,k_fold = 10, scoring = 
     cv_results = model_selection.cross_val_score(model, features, y, cv=kfold, scoring=scoring)
     results.append(cv_results)
     names.append(name)
-    msg = f'{name}: -- {cv_results.mean()}, ({cv_results.std()})'
+    msg = f'{name}: -- {cv_results.mean():.4f}, ({cv_results.std():.4f})'
     if verbose:
       sys.stdout.flush()
     if print_results:
       print(msg)
   # boxplot algorithm comparison
+  #return names, results
   title = f'Algorithm Comaprision for {dependent_variable}'
-  sys.stdout.write(f'\r Done for {dependent_variable}\'s model')
+  #sys.stdout.write(f'\r Done for {dependent_variable}\'s model')
   if figsize:
     plt.figure(figsize = figsize)
   plt.title(title)
