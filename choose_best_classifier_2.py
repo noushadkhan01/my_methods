@@ -8,7 +8,7 @@ def choose_best_classifier(X, y, k_fold = 10, scoring = None, figsize = None,  x
   
   k_fold = default is 10
   scoring = default is None, it's scoring matrix for cross_validation, pass it according to your evaluation type
-
+  **kwargs pass parameters of any classifier given below
   names of each classifiers
   
   PCA with LR = LogisticRegression()                 #Principle compnent analysis with Logistic Regression
