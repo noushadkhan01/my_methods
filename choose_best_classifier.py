@@ -1,5 +1,5 @@
-def choose_best_classifier(X, y, k_fold = 10, scoring = None, figsize = None,  x_ticks_rotation = -40,
-                           plt_show = False, print_results = True, dependent_variable = None, verbose = 0, **kwargs):
+def choose_best_classifier2(X, y, kfold = 10, scoring = None, figsize = None,  x_ticks_rotation = -40,
+                           plt_show = False, print_results = True, dependent_variable = None, verbose = 0, seed = 46,  **kwargs):
   '''This method returns mean and variance of k_fold fold cross validation scores and 
   also returns a boxplot of 10 scores for every model
   
@@ -22,10 +22,11 @@ def choose_best_classifier(X, y, k_fold = 10, scoring = None, figsize = None,  x
   Xgboost = XGBClassifier()                          #XG Boost Classifier
   
   '''
+  import numpy as np
+  np.random.seed(seed)
   import matplotlib.pyplot as plt
   import sys
-  import numpy as np
-  from sklearn import model_selection
+  from sklearn.model_selection import cross_val_score
   from sklearn.model_selection import cross_val_score
   from sklearn.linear_model import LogisticRegression
   from sklearn.tree import DecisionTreeClassifier
@@ -73,19 +74,13 @@ def choose_best_classifier(X, y, k_fold = 10, scoring = None, figsize = None,  x
   if print_results:
     print('model name:-- scores mean, (scores variance)')
   for name, model in models.items():
-    if verbose:
-      sys.stdout.write(f'\r running {k_fold} cross validation for {dependent_variable}\'s model No. {n}/{l}')
-    kfold = model_selection.KFold(n_splits=k_fold, random_state=seed)
     n += 1
-    features = X
     if name == 'PCA with LR':
-      features = X_pca
-    cv_results = model_selection.cross_val_score(model, features, y, cv=kfold, scoring=scoring)
+      X = X_pca
+    cv_results = cross_val_score(model, X, y, cv=kfold, scoring=scoring)
     results.append(cv_results)
     names.append(name)
     msg = f'{name}: -- {cv_results.mean():.4f}, ({cv_results.std():.4f})'
-    if verbose:
-      sys.stdout.flush()
     if print_results:
       print(msg)
   # boxplot algorithm comparison
