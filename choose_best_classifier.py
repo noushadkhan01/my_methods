@@ -1,4 +1,4 @@
-def choose_best_classifier(X, y, kfold = 10, scoring = None, figsize = None,  x_ticks_rotation = -40,
+def choose_best_classifier(X, y, kfold = 10, scoring = None,pca_n_components = 2,  figsize = None,  x_ticks_rotation = -40,
                            plt_show = False, print_results = True, dependent_variable = None, verbose = 0, seed_no = 46,  **kwargs):
   '''This method returns mean and variance of k_fold fold cross validation scores and 
   also returns a boxplot of 10 scores for every model
@@ -48,7 +48,7 @@ def choose_best_classifier(X, y, kfold = 10, scoring = None, figsize = None,  x_
   # prepare configuration for cross validation test harness
   seed = 7
   # prepare models
-  pca = PCA(n_components = 2)
+  pca = PCA(n_components = pca_n_components)
   X_pca = pca.fit_transform(X)
   models = {}
   models['PCA with LR'] = LogisticRegression()
