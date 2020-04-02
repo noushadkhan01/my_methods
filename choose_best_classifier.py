@@ -37,6 +37,7 @@ def choose_best_classifier(X, y, kfold = 10, scoring = None, figsize = None,  x_
   from sklearn.decomposition import PCA
   from sklearn.naive_bayes import GaussianNB
   from sklearn.svm import SVC 
+  from sklearn.preprocessing import StandardScaler
   
   #name of dependent variable
   if not dependent_variable:
@@ -76,8 +77,15 @@ def choose_best_classifier(X, y, kfold = 10, scoring = None, figsize = None,  x_
   for name, model in models.items():
     n += 1
     if name == 'PCA with LR':
-      X = X_pca
-    cv_results = cross_val_score(model, X, y, cv=kfold, scoring=scoring)
+      features = X_pca
+    else:
+      features = X
+    if name == 'KNN':
+      sc = StandardScaler()
+      features = sc.fit_trasnform(X)
+    else:
+      features = X
+    cv_results = cross_val_score(model, features, y, cv=kfold, scoring=scoring)
     results.append(cv_results)
     names.append(name)
     msg = f'{name}: -- {cv_results.mean():.4f}, ({cv_results.std():.4f})'
