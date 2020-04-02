@@ -48,7 +48,7 @@ def choose_best_classifier(X, y, kfold = 10, scoring = None, figsize = None,  x_
   # prepare configuration for cross validation test harness
   seed = 7
   # prepare models
-  pca = PCA()
+  pca = PCA(n_components = 2)
   X_pca = pca.fit_transform(X)
   models = {}
   models['PCA with LR'] = LogisticRegression()
@@ -76,15 +76,14 @@ def choose_best_classifier(X, y, kfold = 10, scoring = None, figsize = None,  x_
     print('model name:-- scores mean, (scores variance)')
   for name, model in models.items():
     n += 1
+    features = X
     if name == 'PCA with LR':
-      features = X_pca
-    else:
-      features = X
+      features = X_pca.copy()
+      print(features.shape)
     if name == 'KNN':
       sc = StandardScaler()
-      features = sc.fit_trasnform(X)
-    else:
-      features = X
+      features = sc.fit_transform(X).copy()
+
     cv_results = cross_val_score(model, features, y, cv=kfold, scoring=scoring)
     results.append(cv_results)
     names.append(name)
