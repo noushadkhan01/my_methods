@@ -1,5 +1,5 @@
 def choose_best_classifier2(X, y, kfold = 10, scoring = None, figsize = None,  x_ticks_rotation = -40,
-                           plt_show = False, print_results = True, dependent_variable = None, verbose = 0, seed = 46,  **kwargs):
+                           plt_show = False, print_results = True, dependent_variable = None, verbose = 0, seed_no = 46,  **kwargs):
   '''This method returns mean and variance of k_fold fold cross validation scores and 
   also returns a boxplot of 10 scores for every model
   
@@ -23,7 +23,7 @@ def choose_best_classifier2(X, y, kfold = 10, scoring = None, figsize = None,  x
   
   '''
   import numpy as np
-  np.random.seed(seed)
+  np.random.seed(seed_no)
   import matplotlib.pyplot as plt
   import sys
   from sklearn.model_selection import cross_val_score
