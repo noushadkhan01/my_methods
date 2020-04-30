@@ -1,6 +1,3 @@
-class Matrix_mul(self, a, b):
-  self.a = a
-  self.b = b
 def assert_matrix(b):
   #check if all lists of list have same number of elements
   n = 0
