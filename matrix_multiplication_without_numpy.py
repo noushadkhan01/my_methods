@@ -1,13 +1,15 @@
 def assert_matrix(b):
-  #check if all lists of list have same number of elements
+  #check if all lists of list have same number of elements, all are integers
   n = 0
   while n < len(b) - 1:
     if type(b[n]) is list and type(b[n + 1]) is list:
+      #check if lists of list is equal for all
       if len(b[n]) == len(b[n + 1]):
           n += 1
           continue
       else:
         raise ValueError('lists of lists doesn\'t have same number of items')
+    #check if it is integers
     elif type(b[n] is int) and type(b[n + 1]) is int:
       n += 1
       continue
@@ -19,13 +21,16 @@ def matrix_mul(a, b):
   shape_a = (len(a), len(a[0]))
   shape_b = (len(b), len(b[0]))
   out_shape = (shape_a[0], shape_b[1])
+  #if type of elemennts in list is also a list
   if type(b[0]) is list and type(a[0]) is list:
+    #check if columns of a are equal to rows of b
     if shape_a[1] == shape_b[0]:
+      #create an empty list to append elements
       f_list = []
       for n1, i in enumerate(a):
         f = []
         for n2 in range(len(b[0])):
-          s = 0
+          s = 0 #intialize sum of multiplications
           for n3, j in enumerate(i):
             s += j * b[n3][n2]
           f.append(s)
