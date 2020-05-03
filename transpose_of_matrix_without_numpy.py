@@ -1,4 +1,4 @@
-def inverse_without_numpy(matrix):
+def transpose_without_numpy(matrix):
   #make a copy of original matrix
   copy = matrix
   #create for loop and apply basic method of transpose 
