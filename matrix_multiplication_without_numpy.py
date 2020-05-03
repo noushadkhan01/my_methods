@@ -17,6 +17,7 @@ def assert_matrix(b):
       raise TypeError('items in list must be integers and must have same type')
 #transpose of a matrix
 def transpose_without_numpy(matrix):
+  import numpy as np
   if type(copy) is np.ndarray:
     copy = matrix.copy()
   else:
