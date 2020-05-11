@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="my_methods", # Replace with your own username
-    version="0.0.1",
+    version="0.0.2",
     author="Noushad Khan",
     author_email="noushadkhan1994@gmail.com",
     description="my_methods",
