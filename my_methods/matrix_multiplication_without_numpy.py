@@ -15,22 +15,23 @@ def assert_matrix(b):
       continue
     else:
       raise TypeError('items in list must be integers and must have same type')
+
 #transpose of a matrix
 def transpose_without_numpy(matrix):
-  import numpy as np
-  #make a copy of original matrix
-  if type(matrix) is np.ndarray:
-    copy = matrix.copy()
-  else:
-    import copy
-    copy_m = copy.deepcopy(matrix)
-    
+  '''it returns transpose of a matrix without any use of numpy'''
+  #get shape of matrix
+  rows = len(matrix)
+  cols = len(matrix[0])
+  #create empty matrix with shape = (cols, rows)
+  transpose = []
+  for i in range(cols):
+    transpose.append([0 for j in range(rows)])
   #use basic formula for transpose which is 
-  #B_i_j = A_j_i
-  for n1 in range(len(matrix)):
-    for n2 in range(len(matrix[0])):
-      copy_m[n1][n2] = matrix[n2][n1]
-  return copy_m
+  #B_i_j = A_i_j
+  for n in range(len(transpose)):
+    for n2 in range(len(matrix)):
+      transpose[n][n2] = matrix[n2][n]
+  return transpose
 
 def matrix_mul(a, b):
   assert_matrix(a)
