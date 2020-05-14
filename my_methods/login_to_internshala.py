@@ -8,4 +8,5 @@ def login_to_internshala(browser):
   password = getpass('password')
   browser.find_element_by_id('modal_password').send_keys(password)
   browser.find_element_by_id('modal_login_submit').click()
+  print('Login Successfull')
   return browser
